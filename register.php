@@ -18,7 +18,7 @@
     $pass = md5($hash . $pass);
     $prepare = $pdo->prepare('INSERT INTO users(email, pass) VALUES (:email, :pass)');
     $prepare->execute(['email' => $email,'pass' => $pass]);
-    return $id = $pdo->lastInsertId();
+    return $pdo->lastInsertId();
   };
 
  
@@ -34,7 +34,7 @@
   };
 
 
-  // проверка: есть ли такой эл. адрес в базе?
+  // проверка: есть ли такой эл. адрес в базе?
   if (get_user_by_email($email, $pdo)['email'] == $email) {
     set_flash_message('error_email', '<div class="alert alert-danger text-dark" role="alert"><strong>Уведомление!</strong> Этот эл. адрес уже занят другим пользователем.</div>');
     set_flash_message('email', $email);
